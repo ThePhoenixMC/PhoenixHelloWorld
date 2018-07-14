@@ -25,10 +25,13 @@ public class Demo extends Module{
         Phoenix.getCommandManager().registerCommand(this,new DemoCommandExecutor());
 
         Phoenix.getEventManager().registerListener(this, new DemoEventListener());
+        
+        Phoenix.getServer().getWorlds().forEach(world -> System.out.println("world.getName() = " + world.getName()));
         try {
             logger.debug(Phoenix.getConfigurationManager().getConfigurationDirectory(this).getAbsolutePath());
             JsonConfiguration configuration = Phoenix.getConfigurationManager().getConfig(this);
             configuration.set("blah", "2");
+            configuration.set("val", Phoenix.getServer().getWorlds());
             configuration.save();
         } catch (IOException e) {
             e.printStackTrace();
